@@ -3,9 +3,9 @@ services:
   phabricator:
     restart: always
     ports:
-     - "62443:443"
-     - "62080:80"
-     - "62022:2222"
+     - "8443:443"
+     - "8080:80"
+     - "2222:22"
     volumes:
      - phabricator-repos:/repos
      - phabricator-extensions:/srv/phabricator/phabricator/src/extensions
