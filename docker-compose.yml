@@ -3,30 +3,30 @@ services:
   phabricator:
     restart: always
     ports:
-     - "8443:443"
-     - "8080:80"
-     - "2222:22"
+    - "8443:443"
+    - "8080:80"
+    - "2222:22"
     volumes:
-     - phabricator-repos:/repos
-     - phabricator-extensions:/srv/phabricator/phabricator/src/extensions
+    - phabricator-repos:/repos
+    - phabricator-extensions:/srv/phabricator/phabricator/src/extensions
     depends_on:
-     - mysql
+    - mariadb
     links:
-     - mysql
+    - mariadb
     environment:
-     - MYSQL_ROOT_PASSWORD
-     - MYSQL_HOST=mysql
-     - MYSQL_USER=root
-     - PHABRICATOR_REPOSITORY_PATH=/repos
-     - PHABRICATOR_HOST=phabricator.flowercluster.io
+    - MYSQL_HOST=mariadb
+    - MYSQL_USER
+    - MYSQL_PASS
+    - PHABRICATOR_REPOSITORY_PATH=/repos
+    - PHABRICATOR_HOST="phabricator.flowercluster.io:8080"
     image: flowercluster/phabricator
-  mysql:
+  mariadb:
     restart: always
     volumes:
-     - phabricator-mysql:/var/lib/mysql
-    image: mysql:5.7.14
+    - phabricator-mysql:/var/lib/mysql
+    image: mariadb:10.3
     environment:
-     - MYSQL_ROOT_PASSWORD
+    - MYSQL_ROOT_PASSWORD
 
 volumes:
   phabricator-mysql:
